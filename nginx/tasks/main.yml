@@ -1,0 +1,19 @@
+- name: "Install Nginx"
+  apt:
+    name: nginx
+    state: present
+
+- name: "Nginx Install confrmation message"
+  debug:
+    msg: "System {{ inventory_hostname }} has installed}}"
+
+- name: "Start nginx"
+  service:
+    name: nginx
+    state: started
+
+- name: "Copy index file"
+  copy:
+    src: index.html
+    dest: /var/www/html/index.nginx-debian.html
+  notify: "restart nginx"
